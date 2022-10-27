@@ -1,4 +1,5 @@
-﻿using Pokedex.Data.Models.FunTranslationsApi;
+﻿using Newtonsoft.Json;
+using Pokedex.Data.Models.FunTranslationsApi;
 
 namespace Pokedex.Data.HttpClients
 {
@@ -11,9 +12,31 @@ namespace Pokedex.Data.HttpClients
             this.httpClient = httpClient;
         }
 
-        public Task<string> GetTranslation(string? textToTranslate, TranslationType translationType)
+        public async Task<string> GetTranslation(string? textToTranslate, TranslationType translationType)
         {
-            throw new NotImplementedException();
+            string? requestUri;
+            switch (translationType)
+            {
+                case TranslationType.Yoda:
+                    requestUri = $"yoda.json?text={textToTranslate}";
+                    break;
+                case TranslationType.Shakespeare:
+                    requestUri = $"shakespeare.json?text={textToTranslate}";
+                    break;
+                default:
+                    throw new Exception($"Translation type not implemented: {translationType}");
+            }
+
+            var httpResponseMessage = await httpClient.GetAsync(requestUri);
+
+            var responseString = await httpResponseMessage.Content.ReadAsStringAsync();
+
+            if (!httpResponseMessage.IsSuccessStatusCode)
+                throw new Exception();
+
+            var funTranslationsResponse = JsonConvert.DeserializeObject<FunTranslationsResponse>(responseString);
+
+            return funTranslationsResponse?.Contents?.Translated;
         }
     }
 }
