@@ -41,8 +41,15 @@ namespace Pokedex.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Pokemon))]
         public async Task<IActionResult> GetTranslated(string pokemonName)
         {
-            var pokemon = await pokemonTranslatorService.TranslatePokemon(pokemonName);
-            return Ok(pokemon);
+            try
+            {
+                var pokemon = await pokemonTranslatorService.TranslatePokemon(pokemonName);
+                return Ok(pokemon);
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
         }
     }
 }
