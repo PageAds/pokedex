@@ -1,0 +1,36 @@
+﻿using Microsoft.AspNetCore.Mvc.Testing;
+using Newtonsoft.Json;
+using Pokedex.Models;
+using Shouldly;
+using System.Net;
+using Xunit;
+
+namespace Pokedex.IntegrationTests
+{
+    public class PokemonControllerTests
+    {
+        [Fact]
+        public async Task Get_WhenPokemonIsRequested_ReturnsPokemonInformation()
+        {
+            // Arrange
+            var application = new WebApplicationFactory<Program>();
+
+            var client = application.CreateClient();
+
+            // Act
+            var response = await client.GetAsync("/pokemon/ditto");
+
+            // Assert
+            response.ShouldNotBeNull();
+            response.StatusCode.ShouldBe(HttpStatusCode.OK);
+
+            var responseString = await response.Content.ReadAsStringAsync();
+            var pokemon = JsonConvert.DeserializeObject<Pokemon>(responseString);
+            pokemon.ShouldNotBeNull();
+            pokemon.Name.ShouldBe("ditto");
+            pokemon.Description.ShouldBe("Capable of copying an enemy's genetic code to instantly transform itself into a duplicate of the enemy.");
+            pokemon.Habitat.ShouldBe("urban");
+            pokemon.IsLegendary.ShouldBeFalse();
+        }
+    }
+}
