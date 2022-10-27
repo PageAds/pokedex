@@ -21,7 +21,7 @@ namespace Pokedex.Data.HttpClients
 
         public async Task<PokemonSpeciesResponse> GetPokemonSpecies(string pokemonName)
         {
-            var httpResponseMessage = await httpClient.GetAsync(@$"pokemon-specis/{pokemonName}");
+            var httpResponseMessage = await httpClient.GetAsync(@$"pokemon-species/{pokemonName}");
 
             if (httpResponseMessage.StatusCode == HttpStatusCode.NotFound)
             {
