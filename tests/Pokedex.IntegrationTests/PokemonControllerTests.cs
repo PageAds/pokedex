@@ -23,6 +23,7 @@ namespace Pokedex.IntegrationTests
                     builder.ConfigureTestServices(services =>
                     {
                         services.AddTransient<IPokeApiClient, PokeApiMockClient>();
+                        services.AddTransient<IFunTranslationsApiClient, FunTranslationsMockClient>();
                     });
                 });
 
@@ -54,6 +55,7 @@ namespace Pokedex.IntegrationTests
                     builder.ConfigureTestServices(services =>
                     {
                         services.AddTransient<IPokeApiClient, PokeApiMockClient>();
+                        services.AddTransient<IFunTranslationsApiClient, FunTranslationsMockClient>();
                     });
                 });
 
@@ -77,6 +79,7 @@ namespace Pokedex.IntegrationTests
                     builder.ConfigureTestServices(services =>
                     {
                         services.AddTransient<IPokeApiClient, PokeApiMockClient>();
+                        services.AddTransient<IFunTranslationsApiClient, FunTranslationsMockClient>();
                     });
                 });
 

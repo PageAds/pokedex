@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Pokedex.Common.Exceptions;
 using Pokedex.Common.Models;
 using Pokedex.Data.Repositories;
+using Pokedex.Services;
 
 namespace Pokedex.Controllers
 {
@@ -10,10 +11,14 @@ namespace Pokedex.Controllers
     public class PokemonController : ControllerBase
     {
         private readonly IPokemonRepository pokemonRepository;
+        private readonly IPokemonTranslatorService pokemonTranslatorService;
 
-        public PokemonController(IPokemonRepository pokemonRepository)
+        public PokemonController(
+            IPokemonRepository pokemonRepository,
+            IPokemonTranslatorService pokemonTranslatorService)
         {
             this.pokemonRepository = pokemonRepository;
+            this.pokemonTranslatorService = pokemonTranslatorService;
         }
 
         [HttpGet("{pokemonName}")]
@@ -30,6 +35,14 @@ namespace Pokedex.Controllers
             {
                 return NotFound();
             }
+        }
+
+        [HttpGet("translated/{pokemonName}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Pokemon))]
+        public async Task<IActionResult> GetTranslated(string pokemonName)
+        {
+            var pokemon = await pokemonTranslatorService.TranslatePokemon(pokemonName);
+            return Ok(pokemon);
         }
     }
 }

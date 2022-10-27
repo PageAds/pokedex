@@ -1,5 +1,6 @@
 using Pokedex.Data.HttpClients;
 using Pokedex.Data.Repositories;
+using Pokedex.Services;
 
 namespace Pokedex
 {
@@ -10,6 +11,7 @@ namespace Pokedex
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddTransient<IPokemonRepository, PokemonRepository>();
+            builder.Services.AddTransient<IPokemonTranslatorService, PokemonTranslatorService>();
 
             builder.Services.AddHttpClient<IPokeApiClient, PokeApiClient>((httpClient) =>
             {

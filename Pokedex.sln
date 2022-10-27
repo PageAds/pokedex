@@ -7,11 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pokedex", "src\Pokedex\Poke
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{29B61295-4C07-4827-94B0-31D7E81F897A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokedex.IntegrationTests", "tests\Pokedex.IntegrationTests\Pokedex.IntegrationTests.csproj", "{36F09AE6-B483-4008-9C41-DC7607CAE6C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pokedex.IntegrationTests", "tests\Pokedex.IntegrationTests\Pokedex.IntegrationTests.csproj", "{36F09AE6-B483-4008-9C41-DC7607CAE6C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokedex.Data", "src\Pokedex.Data\Pokedex.Data.csproj", "{5174C76E-FD50-45D2-AAA0-80E310BDA571}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pokedex.Data", "src\Pokedex.Data\Pokedex.Data.csproj", "{5174C76E-FD50-45D2-AAA0-80E310BDA571}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokedex.Common", "src\Pokedex.Common\Pokedex.Common.csproj", "{F7262CA6-5305-4275-9FB7-F80698909A2C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pokedex.Common", "src\Pokedex.Common\Pokedex.Common.csproj", "{F7262CA6-5305-4275-9FB7-F80698909A2C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokedex.Services", "src\Pokedex.Services\Pokedex.Services.csproj", "{2536D85A-D2D2-440C-90EB-089C7D611BF4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +37,10 @@ Global
 		{F7262CA6-5305-4275-9FB7-F80698909A2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7262CA6-5305-4275-9FB7-F80698909A2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F7262CA6-5305-4275-9FB7-F80698909A2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2536D85A-D2D2-440C-90EB-089C7D611BF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2536D85A-D2D2-440C-90EB-089C7D611BF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2536D85A-D2D2-440C-90EB-089C7D611BF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2536D85A-D2D2-440C-90EB-089C7D611BF4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
