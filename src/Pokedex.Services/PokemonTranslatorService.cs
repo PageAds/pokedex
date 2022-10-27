@@ -24,6 +24,8 @@ namespace Pokedex.Services
 
             if (ShouldPerformYodaTranslation(pokemon))
                 pokemon.Description = await funTranslationApiClient.GetTranslation(pokemon.Description, TranslationType.Yoda);
+            else
+                pokemon.Description = await funTranslationApiClient.GetTranslation(pokemon.Description, TranslationType.Shakespeare);
 
             return pokemon;
         }
