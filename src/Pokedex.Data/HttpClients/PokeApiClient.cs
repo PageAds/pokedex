@@ -31,13 +31,8 @@ namespace Pokedex.Data.HttpClients
 
             var responseString = await httpResponseMessage.Content.ReadAsStringAsync();
 
-            if (!httpResponseMessage.IsSuccessStatusCode)
-            {
-                logger.LogError($"Request: {httpResponseMessage?.RequestMessage?.Method} {httpResponseMessage?.RequestMessage?.RequestUri} " +
-                    $"failed with status code: {httpResponseMessage?.StatusCode} with response content: {responseString}");
-                
+            if (!httpResponseMessage.IsSuccessStatusCode)      
                 throw new Exception("Failed to get pokemon species");
-            }
 
             return JsonConvert.DeserializeObject<PokemonSpeciesResponse>(responseString);
         }

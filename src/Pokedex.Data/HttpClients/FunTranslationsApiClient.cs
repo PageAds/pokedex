@@ -37,12 +37,7 @@ namespace Pokedex.Data.HttpClients
             var responseString = await httpResponseMessage.Content.ReadAsStringAsync();
 
             if (!httpResponseMessage.IsSuccessStatusCode)
-            {
-                logger.LogError($"Request: {httpResponseMessage?.RequestMessage?.Method} {httpResponseMessage?.RequestMessage?.RequestUri} " +
-                    $"failed with status code: {httpResponseMessage?.StatusCode} with response content: {responseString}");
-
                 throw new Exception("Failed to get fun translation");
-            }
 
             var funTranslationsResponse = JsonConvert.DeserializeObject<FunTranslationsResponse>(responseString);
 

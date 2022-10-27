@@ -1,3 +1,4 @@
+using Pokedex.Data.Handlers;
 using Pokedex.Data.HttpClients;
 using Pokedex.Data.Repositories;
 using Pokedex.Services;
@@ -12,16 +13,19 @@ namespace Pokedex
 
             builder.Services.AddTransient<IPokemonRepository, PokemonRepository>();
             builder.Services.AddTransient<IPokemonTranslatorService, PokemonTranslatorService>();
+            builder.Services.AddTransient<UnsuccessfulStatusCodeLoggerHandler>();
 
             builder.Services.AddHttpClient<IPokeApiClient, PokeApiClient>((httpClient) =>
             {
                 httpClient.BaseAddress = new Uri(builder.Configuration["PokeApiBaseUrl"]);
-            });
+            })
+            .AddHttpMessageHandler<UnsuccessfulStatusCodeLoggerHandler>();
 
             builder.Services.AddHttpClient<IFunTranslationsApiClient, FunTranslationsApiClient>((httpClient) =>
             {
                 httpClient.BaseAddress = new Uri(builder.Configuration["FunTranslationsApiBaseUrl"]);
-            });
+            })
+            .AddHttpMessageHandler<UnsuccessfulStatusCodeLoggerHandler>();
 
             builder.Services.AddControllers();
 
