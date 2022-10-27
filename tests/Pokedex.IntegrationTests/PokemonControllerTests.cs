@@ -66,5 +66,36 @@ namespace Pokedex.IntegrationTests
             response.ShouldNotBeNull();
             response.StatusCode.ShouldBe(HttpStatusCode.NotFound);
         }
+
+        [Fact]
+        public async Task GetTranslated_WhenCavePokemonIsRequested_ReturnsPokemonInformationWithDescriptionTranslatedByYoda()
+        {
+            // Arrange
+            var application = new WebApplicationFactory<Program>()
+                .WithWebHostBuilder(builder =>
+                {
+                    builder.ConfigureTestServices(services =>
+                    {
+                        services.AddTransient<IPokeApiClient, PokeApiMockClient>();
+                    });
+                });
+
+            var client = application.CreateClient();
+
+            // Act
+            var response = await client.GetAsync("/pokemon/translated/woobat");
+
+            // Assert
+            response.ShouldNotBeNull();
+            response.StatusCode.ShouldBe(HttpStatusCode.OK);
+
+            var responseString = await response.Content.ReadAsStringAsync();
+            var pokemon = JsonConvert.DeserializeObject<Pokemon>(responseString);
+            pokemon.ShouldNotBeNull();
+            pokemon.Name.ShouldBe("woobat");
+            pokemon.Description.ShouldBe("Dark forests and caves, its habitat is. Ultrasonic waves from its nose to learn about its surroundings, it emits.");
+            pokemon.Habitat.ShouldBe("cave");
+            pokemon.IsLegendary.ShouldBeFalse();
+        }
     }
 }

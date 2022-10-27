@@ -33,6 +33,29 @@ namespace Pokedex.IntegrationTests.Mocks
                     };
 
                     return await Task.FromResult(dittoPokemonSpeciesResponse);
+                case "woobat":
+                    var woobatPokemonSpeciesResponse = new PokemonSpeciesResponse
+                    {
+                        Name = "woobat",
+                        FlavorTextEntries = new List<FlavorTextEntry>()
+                        {
+                            new FlavorTextEntry
+                            {
+                                FlavorText = "Its habitat is dark forests and caves.\nIt emits ultrasonic waves from its\nnose to learn about its surroundings.",
+                                Language = new Language
+                                {
+                                    Name = "en"
+                                }
+                            }
+                        },
+                        Habitat = new Habitat
+                        {
+                            Name = "cave"
+                        },
+                        IsLegendary = false
+                    };
+
+                    return await Task.FromResult(woobatPokemonSpeciesResponse);
                 default:
                     throw new EntityNotFoundException("Pokemon does not exist");
             }
