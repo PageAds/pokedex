@@ -1,4 +1,4 @@
-﻿namespace Pokedex.Models
+﻿namespace Pokedex.Common.Models
 {
     public class Pokemon
     {

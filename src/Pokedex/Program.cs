@@ -1,3 +1,6 @@
+using Pokedex.Data.HttpClients;
+using Pokedex.Data.Repositories;
+
 namespace Pokedex
 {
     public class Program
@@ -5,6 +8,8 @@ namespace Pokedex
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddTransient<IPokemonRepository, PokemonRepository>();
 
             builder.Services.AddControllers();
 

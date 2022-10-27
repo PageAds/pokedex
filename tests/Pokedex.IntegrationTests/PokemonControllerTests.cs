@@ -1,6 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.AspNetCore.TestHost;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
-using Pokedex.Models;
+using Pokedex.Common.Models;
+using Pokedex.Data.HttpClients;
+using Pokedex.IntegrationTests.Mocks;
 using Shouldly;
 using System.Net;
 using Xunit;
@@ -13,7 +17,14 @@ namespace Pokedex.IntegrationTests
         public async Task Get_WhenPokemonIsRequested_ReturnsPokemonInformation()
         {
             // Arrange
-            var application = new WebApplicationFactory<Program>();
+            var application = new WebApplicationFactory<Program>()
+                .WithWebHostBuilder(builder =>
+                {
+                    builder.ConfigureTestServices(services =>
+                    {
+                        services.AddTransient<IPokeApiClient, PokeApiMockClient>();
+                    });
+                });
 
             var client = application.CreateClient();
 

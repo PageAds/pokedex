@@ -18,6 +18,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\..\src\Pokedex.Common\Pokedex.Common.csproj" />
 	  <ProjectReference Include="..\..\src\Pokedex\Pokedex.csproj" />
 	</ItemGroup>
 
