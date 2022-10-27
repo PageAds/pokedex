@@ -1,4 +1,5 @@
-﻿using Moq;
+﻿using Microsoft.Extensions.Logging;
+using Moq;
 using Moq.Protected;
 using Newtonsoft.Json;
 using Pokedex.Data.HttpClients;
@@ -11,12 +12,15 @@ namespace Pokedex.UnitTests
     public class FunTranslationsApiClientTests
     {
         private readonly FunTranslationsApiClient subject;
+        private readonly Mock<ILogger<FunTranslationsApiClient>> loggerMock;
         private readonly Mock<HttpMessageHandler> messageHandlerMock;
 
         private readonly string fakeApiUrl = "https://fake-api/translate/";
 
         public FunTranslationsApiClientTests()
         {
+            loggerMock = new Mock<ILogger<FunTranslationsApiClient>>();
+
             var funTranslationsResponseMock = new FunTranslationsResponse
             {
                 Contents = new Contents
@@ -39,7 +43,7 @@ namespace Pokedex.UnitTests
                 BaseAddress = new Uri(fakeApiUrl)
             };
 
-            subject = new FunTranslationsApiClient(httpClient);
+            subject = new FunTranslationsApiClient(loggerMock.Object, httpClient);
         }
 
         [Fact]

@@ -1,14 +1,19 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using Pokedex.Data.Models.FunTranslationsApi;
 
 namespace Pokedex.Data.HttpClients
 {
     public class FunTranslationsApiClient : IFunTranslationsApiClient
     {
+        private readonly ILogger<FunTranslationsApiClient> logger;
         private readonly HttpClient httpClient;
 
-        public FunTranslationsApiClient(HttpClient httpClient)
+        public FunTranslationsApiClient(
+            ILogger<FunTranslationsApiClient> logger,
+            HttpClient httpClient)
         {
+            this.logger = logger;
             this.httpClient = httpClient;
         }
 
@@ -32,11 +37,23 @@ namespace Pokedex.Data.HttpClients
             var responseString = await httpResponseMessage.Content.ReadAsStringAsync();
 
             if (!httpResponseMessage.IsSuccessStatusCode)
-                throw new Exception();
+            {
+                logger.LogError($"Request: {httpResponseMessage?.RequestMessage?.Method} {httpResponseMessage?.RequestMessage?.RequestUri} " +
+                    $"failed with status code: {httpResponseMessage?.StatusCode} with response content: {responseString}");
+
+                throw new Exception("Failed to get fun translation");
+            }
 
             var funTranslationsResponse = JsonConvert.DeserializeObject<FunTranslationsResponse>(responseString);
 
-            return funTranslationsResponse?.Contents?.Translated;
+            if (funTranslationsResponse?.Contents?.Translated == null)
+            {
+                logger.LogError($"Unable to determine translated value after deserialization, response content: {responseString}");
+               
+                throw new Exception("Unable to determine translated value");
+            }
+
+            return funTranslationsResponse.Contents.Translated;
         }
     }
 }
