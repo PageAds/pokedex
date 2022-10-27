@@ -11,6 +11,11 @@ namespace Pokedex
 
             builder.Services.AddTransient<IPokemonRepository, PokemonRepository>();
 
+            builder.Services.AddHttpClient<IPokeApiClient, PokeApiClient>((httpClient) =>
+            {
+                httpClient.BaseAddress = new Uri(builder.Configuration["PokeApiBaseUrl"]);
+            });
+
             builder.Services.AddControllers();
 
             builder.Services.AddEndpointsApiExplorer();
