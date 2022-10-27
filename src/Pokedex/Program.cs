@@ -18,6 +18,11 @@ namespace Pokedex
                 httpClient.BaseAddress = new Uri(builder.Configuration["PokeApiBaseUrl"]);
             });
 
+            builder.Services.AddHttpClient<IFunTranslationsApiClient, FunTranslationsApiClient>((httpClient) =>
+            {
+                httpClient.BaseAddress = new Uri(builder.Configuration["FunTranslationsApiBaseUrl"]);
+            });
+
             builder.Services.AddControllers();
 
             builder.Services.AddEndpointsApiExplorer();

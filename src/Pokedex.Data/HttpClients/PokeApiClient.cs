@@ -25,7 +25,7 @@ namespace Pokedex.Data.HttpClients
 
             if (httpResponseMessage.StatusCode == HttpStatusCode.NotFound)
             {
-                logger.LogError($"Could not find pokemon: {pokemonName} using  GET {httpResponseMessage?.RequestMessage?.RequestUri}");
+                logger.LogError($"Could not find pokemon: {pokemonName} using GET {httpResponseMessage?.RequestMessage?.RequestUri}");
                 throw new EntityNotFoundException();
             }
 
