@@ -19,6 +19,12 @@ namespace Pokedex.IntegrationTests.Mocks
                 return await Task.FromResult("Created by a scientist after years of horrific gene splicing and dna engineering experiments, it was.");
             }
 
+            if (textToTranslate == "Capable of copying an enemy's genetic code to instantly transform itself into a duplicate of the enemy."
+                && translationType == TranslationType.Shakespeare)
+            {
+                return await Task.FromResult("Capable of copying an foe's genetic code to instantly transform itself into a duplicate of the foe.");
+            }
+
             throw new Exception("Translation not found");
         }
     }

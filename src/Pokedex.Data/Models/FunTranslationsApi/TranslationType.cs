@@ -2,6 +2,7 @@
 {
     public enum TranslationType
     {
-        Yoda
+        Yoda,
+        Shakespeare
     }
 }
