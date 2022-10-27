@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Pokedex.Common.Exceptions;
 using Pokedex.Common.Models;
 using Pokedex.Data.Repositories;
 
@@ -17,10 +18,18 @@ namespace Pokedex.Controllers
 
         [HttpGet("{pokemonName}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Pokemon))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Get(string pokemonName)
         {
-            var pokemon = await pokemonRepository.Get(pokemonName);
-            return Ok(pokemon);
+            try
+            {
+                var pokemon = await pokemonRepository.Get(pokemonName);
+                return Ok(pokemon);
+            }
+            catch (EntityNotFoundException)
+            {
+                return NotFound();
+            }
         }
     }
 }
