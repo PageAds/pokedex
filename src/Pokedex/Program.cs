@@ -14,6 +14,7 @@ namespace Pokedex
             builder.Services.AddTransient<IPokemonRepository, PokemonRepository>();
             builder.Services.AddTransient<IPokemonTranslatorService, PokemonTranslatorService>();
             builder.Services.AddTransient<UnsuccessfulStatusCodeLoggerHandler>();
+            builder.Services.AddTransient(sp => new FunTranslationsApiAuthenticationHandler(builder.Configuration["FunTranslationsApiSecret"]));
 
             builder.Services.AddHttpClient<IPokeApiClient, PokeApiClient>((httpClient) =>
             {
@@ -25,6 +26,7 @@ namespace Pokedex
             {
                 httpClient.BaseAddress = new Uri(builder.Configuration["FunTranslationsApiBaseUrl"]);
             })
+            .AddHttpMessageHandler<FunTranslationsApiAuthenticationHandler>()
             .AddHttpMessageHandler<UnsuccessfulStatusCodeLoggerHandler>();
 
             builder.Services.AddControllers();
