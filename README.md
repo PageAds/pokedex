@@ -7,11 +7,11 @@
 1. Clone the repository to your local machine using Git
 2. In a terminal (e.g. Windows Command Prompt), navigate to the root of the repository and run the following command:
 
-    `dotnet watch run --project src\Pokedex`
+    `dotnet watch run --project src\pokedex`
 3. The solution will build/run and open a browser to the Swagger UI where you can execute the two endpoints:
     - `GET /pokemon/{pokemonName}`
     - `GET /pokemon/translated/{pokemonName}`
-4. Alternatively you can make an API request with any client of your choice (e.g. Postman) to the URL that the service is running on (this is configured by default to be http://localhost:5083/)
+4. Alternatively you can make API requests with any client of your choice (e.g. Postman) to the URL that the service is running on (this is configured by default to be http://localhost:5083/)
 
 # Changes if used in production
 - Implement a caching decorator on `IPokemonRepository` and `IPokemonTranslatorService` to avoid excessive API calls.
