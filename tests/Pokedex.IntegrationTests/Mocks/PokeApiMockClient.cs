@@ -1,4 +1,5 @@
-﻿using Pokedex.Data.HttpClients;
+﻿using Pokedex.Common.Exceptions;
+using Pokedex.Data.HttpClients;
 using Pokedex.Data.Models.PokeApi;
 
 namespace Pokedex.IntegrationTests.Mocks
@@ -7,28 +8,34 @@ namespace Pokedex.IntegrationTests.Mocks
     {
         public async Task<PokemonSpeciesResponse> GetPokemonSpecies(string pokemonName)
         {
-            var pokemonSpeciesResponse = new PokemonSpeciesResponse
+            switch (pokemonName)
             {
-                Name = "ditto",
-                FlavorTextEntries = new List<FlavorTextEntry>()
-                {
-                    new FlavorTextEntry
+                case "ditto":
+                    var dittoPokemonSpeciesResponse = new PokemonSpeciesResponse
                     {
-                        FlavorText = "Capable of copying\nan enemy's genetic\ncode to instantly\ftransform itself\ninto a duplicate\nof the enemy.",
-                        Language = new Language
+                        Name = "ditto",
+                        FlavorTextEntries = new List<FlavorTextEntry>()
                         {
-                            Name = "en"
-                        }
-                    }
-                },
-                Habitat = new Habitat
-                {
-                    Name = "urban"
-                },
-                IsLegendary = false
-            };
+                            new FlavorTextEntry
+                            {
+                                FlavorText = "Capable of copying\nan enemy's genetic\ncode to instantly\ftransform itself\ninto a duplicate\nof the enemy.",
+                                Language = new Language
+                                {
+                                    Name = "en"
+                                }
+                            }
+                        },
+                        Habitat = new Habitat
+                        {
+                            Name = "urban"
+                        },
+                        IsLegendary = false
+                    };
 
-            return await Task.FromResult(pokemonSpeciesResponse);
+                    return await Task.FromResult(dittoPokemonSpeciesResponse);
+                default:
+                    throw new EntityNotFoundException("Pokemon does not exist");
+            }
         }
     }
 }

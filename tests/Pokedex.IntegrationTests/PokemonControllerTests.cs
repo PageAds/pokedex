@@ -43,5 +43,28 @@ namespace Pokedex.IntegrationTests
             pokemon.Habitat.ShouldBe("urban");
             pokemon.IsLegendary.ShouldBeFalse();
         }
+
+        [Fact]
+        public async Task Get_WhenPokemonIsRequestedButNotFound_ReturnsHttpStatusCodeNotFound()
+        {
+            // Arrange
+            var application = new WebApplicationFactory<Program>()
+                .WithWebHostBuilder(builder =>
+                {
+                    builder.ConfigureTestServices(services =>
+                    {
+                        services.AddTransient<IPokeApiClient, PokeApiMockClient>();
+                    });
+                });
+
+            var client = application.CreateClient();
+
+            // Act
+            var response = await client.GetAsync("/pokemon/unknown-pokemon");
+
+            // Assert
+            response.ShouldNotBeNull();
+            response.StatusCode.ShouldBe(HttpStatusCode.NotFound);
+        }
     }
 }
