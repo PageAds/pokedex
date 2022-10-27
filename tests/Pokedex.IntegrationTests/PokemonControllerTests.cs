@@ -164,5 +164,37 @@ namespace Pokedex.IntegrationTests
             pokemon.Habitat.ShouldBe("urban");
             pokemon.IsLegendary.ShouldBeFalse();
         }
+
+        [Fact]
+        public async Task GetTranslated_WhenPokemonIsRequestedButFunTranslationsApiClientIsFailing_ReturnsPokemonInformationWithStandardDescription()
+        {
+            // Arrange
+            var application = new WebApplicationFactory<Program>()
+                .WithWebHostBuilder(builder =>
+                {
+                    builder.ConfigureTestServices(services =>
+                    {
+                        services.AddTransient<IPokeApiClient, PokeApiMockClient>();
+                        services.AddTransient<IFunTranslationsApiClient, FunTranslationsMockFailingApiClient>();
+                    });
+                });
+
+            var client = application.CreateClient();
+
+            // Act
+            var response = await client.GetAsync("/pokemon/translated/ditto");
+
+            // Assert
+            response.ShouldNotBeNull();
+            response.StatusCode.ShouldBe(HttpStatusCode.OK);
+
+            var responseString = await response.Content.ReadAsStringAsync();
+            var pokemon = JsonConvert.DeserializeObject<Pokemon>(responseString);
+            pokemon.ShouldNotBeNull();
+            pokemon.Name.ShouldBe("ditto");
+            pokemon.Description.ShouldBe("Capable of copying an enemy's genetic code to instantly transform itself into a duplicate of the enemy.");
+            pokemon.Habitat.ShouldBe("urban");
+            pokemon.IsLegendary.ShouldBeFalse();
+        }
     }
 }
