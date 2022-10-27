@@ -18,7 +18,7 @@ namespace Pokedex.Controllers
 
         [HttpGet("{pokemonName}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Pokemon))]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(NotFoundResult))]
         public async Task<IActionResult> Get(string pokemonName)
         {
             try
