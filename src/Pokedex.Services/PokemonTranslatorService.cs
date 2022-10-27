@@ -33,7 +33,8 @@ namespace Pokedex.Services
             if (pokemon.Habitat == null)
                 return false;
 
-            return pokemon.Habitat.Equals("cave", StringComparison.OrdinalIgnoreCase);
+            return pokemon.Habitat.Equals("cave", StringComparison.OrdinalIgnoreCase) 
+                || pokemon.IsLegendary;
         }
     }
 }
