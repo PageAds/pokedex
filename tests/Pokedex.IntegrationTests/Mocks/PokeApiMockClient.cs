@@ -56,6 +56,29 @@ namespace Pokedex.IntegrationTests.Mocks
                     };
 
                     return await Task.FromResult(woobatPokemonSpeciesResponse);
+                case "mewtwo":
+                    var mewtwoPokemonSpeciesResponse = new PokemonSpeciesResponse
+                    {
+                        Name = "mewtwo",
+                        FlavorTextEntries = new List<FlavorTextEntry>()
+                        {
+                            new FlavorTextEntry
+                            {
+                                FlavorText = "It was created by\na scientist after\nyears of horrific\fgene splicing and\nDNA engineering\nexperiments.",
+                                Language = new Language
+                                {
+                                    Name = "en"
+                                }
+                            }
+                        },
+                        Habitat = new Habitat
+                        {
+                            Name = "rare"
+                        },
+                        IsLegendary = true
+                    };
+
+                    return await Task.FromResult(mewtwoPokemonSpeciesResponse);
                 default:
                     throw new EntityNotFoundException("Pokemon does not exist");
             }

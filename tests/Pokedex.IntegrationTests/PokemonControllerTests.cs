@@ -70,7 +70,7 @@ namespace Pokedex.IntegrationTests
         }
 
         [Fact]
-        public async Task GetTranslated_WhenCavePokemonIsRequested_ReturnsPokemonInformationWithDescriptionTranslatedByYoda()
+        public async Task GetTranslated_WhenCavePokemonIsRequested_ReturnsPokemonInformationWithDescriptionTranslatedToYoda()
         {
             // Arrange
             var application = new WebApplicationFactory<Program>()
@@ -99,6 +99,38 @@ namespace Pokedex.IntegrationTests
             pokemon.Description.ShouldBe("Dark forests and caves, its habitat is. Ultrasonic waves from its nose to learn about its surroundings, it emits.");
             pokemon.Habitat.ShouldBe("cave");
             pokemon.IsLegendary.ShouldBeFalse();
+        }
+
+        [Fact]
+        public async Task GetTranslated_WhenLegendaryPokemonIsRequested_ReturnsPokemonInformationWithDescriptionTranslatedToYoda()
+        {
+            // Arrange
+            var application = new WebApplicationFactory<Program>()
+                .WithWebHostBuilder(builder =>
+                {
+                    builder.ConfigureTestServices(services =>
+                    {
+                        services.AddTransient<IPokeApiClient, PokeApiMockClient>();
+                        services.AddTransient<IFunTranslationsApiClient, FunTranslationsMockClient>();
+                    });
+                });
+
+            var client = application.CreateClient();
+
+            // Act
+            var response = await client.GetAsync("/pokemon/translated/mewtwo");
+
+            // Assert
+            response.ShouldNotBeNull();
+            response.StatusCode.ShouldBe(HttpStatusCode.OK);
+
+            var responseString = await response.Content.ReadAsStringAsync();
+            var pokemon = JsonConvert.DeserializeObject<Pokemon>(responseString);
+            pokemon.ShouldNotBeNull();
+            pokemon.Name.ShouldBe("mewtwo");
+            pokemon.Description.ShouldBe("Created by a scientist after years of horrific gene splicing and dna engineering experiments, it was.");
+            pokemon.Habitat.ShouldBe("rare");
+            pokemon.IsLegendary.ShouldBeTrue();
         }
     }
 }
