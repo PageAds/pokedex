@@ -7,10 +7,10 @@ namespace Pokedex.IntegrationTests.Mocks
     {
         public async Task<string> GetTranslation(string? textToTranslate, TranslationType translationType)
         {
-            if (textToTranslate == "Its habitat is dark forests and caves. It emits ultrasonic waves from its nose to learn about its surroundings."
+            if (textToTranslate == "Lives about one yard underground where it feeds on plant roots. It sometimes appears above ground."
                 && translationType == TranslationType.Yoda)
             {
-                return await Task.FromResult("Dark forests and caves, its habitat is. Ultrasonic waves from its nose to learn about its surroundings, it emits.");
+                return await Task.FromResult("On plant roots, lives about one yard underground where it feeds.Above ground, it sometimes appears.");
             }
 
             if (textToTranslate == "It was created by a scientist after years of horrific gene splicing and DNA engineering experiments."

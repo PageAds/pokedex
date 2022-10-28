@@ -33,15 +33,15 @@ namespace Pokedex.IntegrationTests.Mocks
                     };
 
                     return await Task.FromResult(dittoPokemonSpeciesResponse);
-                case "woobat":
-                    var woobatPokemonSpeciesResponse = new PokemonSpeciesResponse
+                case "diglett":
+                    var diglettPokemonSpeciesResponse = new PokemonSpeciesResponse
                     {
-                        Name = "woobat",
+                        Name = "diglett",
                         FlavorTextEntries = new List<FlavorTextEntry>()
                         {
                             new FlavorTextEntry
                             {
-                                FlavorText = "Its habitat is dark forests and caves.\nIt emits ultrasonic waves from its\nnose to learn about its surroundings.",
+                                FlavorText = "Lives about one\nyard underground\nwhere it feeds on\fplant roots. It\nsometimes appears\nabove ground.",
                                 Language = new Language
                                 {
                                     Name = "en"
@@ -55,7 +55,7 @@ namespace Pokedex.IntegrationTests.Mocks
                         IsLegendary = false
                     };
 
-                    return await Task.FromResult(woobatPokemonSpeciesResponse);
+                    return await Task.FromResult(diglettPokemonSpeciesResponse);
                 case "mewtwo":
                     var mewtwoPokemonSpeciesResponse = new PokemonSpeciesResponse
                     {

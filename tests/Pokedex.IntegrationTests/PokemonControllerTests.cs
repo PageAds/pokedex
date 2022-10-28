@@ -84,7 +84,7 @@ namespace Pokedex.IntegrationTests
             var client = application.CreateClient();
 
             // Act
-            var response = await client.GetAsync("/pokemon/translated/woobat");
+            var response = await client.GetAsync("/pokemon/translated/diglett");
 
             // Assert
             response.ShouldNotBeNull();
@@ -93,8 +93,8 @@ namespace Pokedex.IntegrationTests
             var responseString = await response.Content.ReadAsStringAsync();
             var pokemon = JsonConvert.DeserializeObject<Pokemon>(responseString);
             pokemon.ShouldNotBeNull();
-            pokemon.Name.ShouldBe("woobat");
-            pokemon.Description.ShouldBe("Dark forests and caves, its habitat is. Ultrasonic waves from its nose to learn about its surroundings, it emits.");
+            pokemon.Name.ShouldBe("diglett");
+            pokemon.Description.ShouldBe("On plant roots, lives about one yard underground where it feeds.Above ground, it sometimes appears.");
             pokemon.Habitat.ShouldBe("cave");
             pokemon.IsLegendary.ShouldBeFalse();
         }
