@@ -77,7 +77,7 @@ namespace Pokedex.IntegrationTests
                     builder.ConfigureTestServices(services =>
                     {
                         services.AddTransient<IPokeApiClient, PokeApiMockClient>();
-                        services.AddTransient<IFunTranslationsApiClient, FunTranslationsMockClient>();
+                        services.AddTransient<IFunTranslationsApiClient, FunTranslationsApiClientMock>();
                     });
                 });
 
@@ -109,7 +109,7 @@ namespace Pokedex.IntegrationTests
                     builder.ConfigureTestServices(services =>
                     {
                         services.AddTransient<IPokeApiClient, PokeApiMockClient>();
-                        services.AddTransient<IFunTranslationsApiClient, FunTranslationsMockClient>();
+                        services.AddTransient<IFunTranslationsApiClient, FunTranslationsApiClientMock>();
                     });
                 });
 
@@ -141,7 +141,7 @@ namespace Pokedex.IntegrationTests
                     builder.ConfigureTestServices(services =>
                     {
                         services.AddTransient<IPokeApiClient, PokeApiMockClient>();
-                        services.AddTransient<IFunTranslationsApiClient, FunTranslationsMockClient>();
+                        services.AddTransient<IFunTranslationsApiClient, FunTranslationsApiClientMock>();
                     });
                 });
 
@@ -173,7 +173,7 @@ namespace Pokedex.IntegrationTests
                     builder.ConfigureTestServices(services =>
                     {
                         services.AddTransient<IPokeApiClient, PokeApiMockClient>();
-                        services.AddTransient<IFunTranslationsApiClient, FunTranslationsMockFailingApiClient>();
+                        services.AddTransient<IFunTranslationsApiClient, FunTranslationsFailingApiClientMock>();
                     });
                 });
 

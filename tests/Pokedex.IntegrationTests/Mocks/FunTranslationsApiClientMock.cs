@@ -3,7 +3,7 @@ using Pokedex.Data.Models.FunTranslationsApi;
 
 namespace Pokedex.IntegrationTests.Mocks
 {
-    public class FunTranslationsMockClient : IFunTranslationsApiClient
+    public class FunTranslationsApiClientMock : IFunTranslationsApiClient
     {
         public async Task<string> GetTranslation(string? textToTranslate, TranslationType translationType)
         {
