@@ -47,7 +47,7 @@ namespace Pokedex.Controllers
                 var pokemon = await pokemonTranslatorService.TranslatePokemon(pokemonName);
                 return Ok(pokemon);
             }
-            catch (Exception)
+            catch (EntityNotFoundException)
             {
                 return NotFound();
             }
